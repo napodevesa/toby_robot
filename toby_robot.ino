@@ -37,7 +37,7 @@ void setup() {
 void loop() {
   // Preparamos el sensor de ultrasonidos
   iniciarTrigger();
-  loopMotor();
+
  
   // Obtenemos la distancia
   float distancia = calcularDistancia();
@@ -50,6 +50,8 @@ void loop() {
   {
     // Lanzamos alertas
     alertas(distancia);
+  } else{
+      loopMotor();
   }
  
 }
