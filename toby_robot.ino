@@ -1,19 +1,16 @@
-#include <Servo.h>
-
+// Pines utilizados
 #define LEDVERDE 2
 #define LEDAMARILLO 3
 #define LEDROJO 4
 #define TRIGGER 5
 #define ECHO 6
 #define BUZZER 9
- 
+
 // Constantes
 const float sonido = 34300.0; // Velocidad del sonido en cm/s
 const float umbral1 = 30.0;
 const float umbral2 = 20.0;
 const float umbral3 = 10.0;
-
-Servo servoMotor;
  
 void setup() {
   // Iniciamos el monitor serie
@@ -26,18 +23,15 @@ void setup() {
   pinMode(ECHO, INPUT);
   pinMode(TRIGGER, OUTPUT);
   pinMode(BUZZER, OUTPUT);
-
-   servoMotor.attach(10);
  
   // Apagamos todos los LEDs
   apagarLEDs();
  
 }
- 
+
 void loop() {
   // Preparamos el sensor de ultrasonidos
   iniciarTrigger();
-
  
   // Obtenemos la distancia
   float distancia = calcularDistancia();
@@ -50,12 +44,10 @@ void loop() {
   {
     // Lanzamos alertas
     alertas(distancia);
-  } else{
-      loopMotor();
   }
  
 }
- 
+
 // Apaga todos los LEDs
 void apagarLEDs()
 {
@@ -64,7 +56,8 @@ void apagarLEDs()
   digitalWrite(LEDAMARILLO, LOW);
   digitalWrite(LEDROJO, LOW);
 }
- 
+
+
 // Función que comprueba si hay que lanzar alguna alerta visual o sonora
 void alertas(float distancia)
 {
@@ -87,7 +80,7 @@ void alertas(float distancia)
     tone(BUZZER, 3000, 200);
   }
 }
- 
+
 // Método que calcula la distancia a la que se encuentra un objeto.
 // Devuelve una variable tipo float que contiene la distancia
 float calcularDistancia()
@@ -105,7 +98,7 @@ float calcularDistancia()
  
   return distancia;
 }
- 
+
 // Método que inicia la secuencia del Trigger para comenzar a medir
 void iniciarTrigger()
 {
@@ -119,22 +112,4 @@ void iniciarTrigger()
  
   // Comenzamos poniendo el pin Trigger en estado bajo
   digitalWrite(TRIGGER, LOW);
-}
-
-void loopMotor() {
-  
-  // Desplazamos a la posición 0º
-  servoMotor.write(0);
-  // Esperamos 1 segundo
-  delay(1000);
-  
-  // Desplazamos a la posición 90º
-  servoMotor.write(90);
-  // Esperamos 1 segundo
-  delay(1000);
-  
-  // Desplazamos a la posición 180º
-  servoMotor.write(180);
-  // Esperamos 1 segundo
-  delay(1000);
 }
